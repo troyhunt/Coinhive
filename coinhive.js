@@ -32,14 +32,23 @@ let createModal = (modalContent) => {
 
     theHead.appendChild(modalStyle);
 
+    const keydownEventListener = event => {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    };
+
+    const closeModal = () => {
+        modal.remove();
+        modalStyle.remove();
+        sessionStorage.setItem('coinhive-modal-shown', '1');
+        theBody.removeEventListener('keydown', keydownEventListener)
+    };
+
     // Close the modal on button-click
-    if (modalClose) {
-        modalClose.addEventListener('click', function () {
-            modal.remove();
-            modalStyle.remove();
-            sessionStorage.setItem('coinhive-modal-shown', '1');
-        });
-    }
+    modalClose.addEventListener('click', closeModal);
+
+    theBody.addEventListener('keydown', keydownEventListener);
 }
 
 if (sessionStorage.getItem('coinhive-modal-shown') === null) {
