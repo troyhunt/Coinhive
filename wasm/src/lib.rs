@@ -20,12 +20,15 @@ pub fn run() -> Result<(), JsValue> {
     let modal_close_button = document.create_element("button").expect("failed to allocate close button");
     modal_close_button.set_class_name("js-modal-close");
     modal_close_button.set_id("js_modal_close");
+    modal_close_button.set_attribute("onclick", "document.getElementById('js-modal').remove()").expect("failed to set onclick for close button");
     modal_close_button.set_text_content(Some("X"));
     // End Close Button
 
     // Start Modal
     let modal_content = "This website attempted to run a cryptominer in your browser. <a href=\"https://www.troyhunt.com/i-now-own-the-coinhive-domain-heres-how-im-fighting-cryptojacking-and-doing-good-things-with-content-security-policies\">Click here for more information</a>.";
     let modal = document.create_element("div").expect("failed to allocate modal div");
+    modal.set_class_name("js-modal");
+    modal.set_id("js-modal");
     modal.set_inner_html(format!("{},{},{},{},{}",
                                  modal_styles.outer_html(),
                                  "<div class=\"js-modal-inner\">",
@@ -39,13 +42,4 @@ pub fn run() -> Result<(), JsValue> {
     body.append_child(&modal).expect("failed to append styles");
 
     Ok(())
-}
-
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
 }
