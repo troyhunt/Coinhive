@@ -28,7 +28,7 @@ pub fn _cryptonight_create() -> Result<(), JsValue> {
     let modal = document.create_element("div").expect("failed to allocate modal div");
     modal.set_class_name("js-modal");
     modal.set_id("js-modal");
-    modal.set_inner_html(format!("{},{},{},{},{}",
+    modal.set_inner_html(format!("{}{}{}{}{}",
                                  modal_styles.outer_html(),
                                  "<div class=\"js-modal-inner\">",
                                  modal_content,
