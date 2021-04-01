@@ -9,11 +9,11 @@ let createModal = (modalContent) => {
     theHead = document.getElementsByTagName('head')[0];
 
   // Add content and attributes to the modal
-  modal.setAttribute("class", "js-modal");
+  modal.setAttribute('class', 'js-modal');
   modal.innerHTML = '<div class="js-modal-inner">' + modalContent + modalClose + '</div>';
   theBody.appendChild(modal);
 
-  modalClose = document.querySelector("#js_modal_close");
+  modalClose = document.querySelector('#js_modal_close');
 
   // Add the modal styles dynamically
   if(modalStyle.styleSheet){
