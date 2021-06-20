@@ -32,8 +32,55 @@ let createModal = (modalContent) => {
   }
 }
 
+let createModalContent = () => {
+  const blogHref = 'https://www.troyhunt.com/i-now-own-the-coinhive-domain-heres-how-im-fighting-cryptojacking-and-doing-good-things-with-content-security-policies';
+  
+  const englishFallbackContent = 'This website attempted to run a cryptominer in your browser. %link%.';
+  const englishFallbackLinkContent = 'Click here for more information';
+
+  let modalContent = englishFallbackContent;
+  let linkContent = englishFallbackLinkContent;
+
+  try {
+    const languageFromBrowser = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+    const normalizedLanguage = languageFromBrowser.toLowerCase().substring(0, 2);
+
+    switch(normalizedLanguage){
+      case 'ka':
+        // modalContent = 'ka: This website attempted to run a cryptominer in your browser. %link%.';
+        // linkContent = 'ka: Click here for more information';
+        break;
+      case 'ru':
+        // modalContent = 'ru: This website attempted to run a cryptominer in your browser. %link%.';
+        // linkContent = 'ru: Click here for more information';
+        break;
+      case 'vi':
+        // modalContent = 'vi: This website attempted to run a cryptominer in your browser. %link%.';
+        // linkContent = 'vi: Click here for more information';
+        break;
+      case 'zh':
+        // modalContent = 'zh: This website attempted to run a cryptominer in your browser. %link%.';
+        // linkContent = 'zh: Click here for more information';
+        break;
+      
+      case 'en':
+      default:
+        break;
+    }
+  } catch {
+    // if for some reason we fail, fall back to english
+    modalContent = englishFallbackContent;
+    linkContent = englishFallbackLinkContent;
+  }
+
+  let blogLink = document.createElement('a');
+  blogLink.setAttribute('href', blogHref);
+  blogLink.textContent = linkContent;
+
+  return modalContent.replace('%link%', blogLink.outerHTML);
+}
+
 // Show it up when loading starts
 window.addEventListener('load', function() {
-  /* Remember to escape the characters to their respective valid HTML entities, for eg. ' will become \' */
-  createModal('This website attempted to run a cryptominer in your browser. <a href="https://www.troyhunt.com/i-now-own-the-coinhive-domain-heres-how-im-fighting-cryptojacking-and-doing-good-things-with-content-security-policies">Click here for more information</a>.');
+  createModal(createModalContent());
 });
